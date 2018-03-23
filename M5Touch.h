@@ -17,7 +17,7 @@ class M5Touch {
     void increaseBacklight(uint8_t);
     void decreaseBacklight(uint8_t);
     void logAnswer(const char *, const char *);
-    void readRect(uint32_t, uint32_t, uint32_t, uint32_t, uint16_t *);
+    //void readRect(uint32_t, uint32_t, uint32_t, uint32_t, uint16_t *);
 
     M5Timer tm;
 

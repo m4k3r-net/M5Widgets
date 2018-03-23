@@ -39,6 +39,7 @@ void M5Touch::logAnswer(const char *who, const char *what) {
   Serial.print("Error in ["); Serial.print(who); Serial.print("]: "); Serial.println(what);
 }
 
+/*
 void M5Touch::readRect(uint32_t px, uint32_t py, uint32_t w, uint32_t h, uint16_t *data) {
   if (w == 0) {
     logAnswer("M5Touch::readRect", "width = 0");
@@ -65,12 +66,14 @@ void M5Touch::readRect(uint32_t px, uint32_t py, uint32_t w, uint32_t h, uint16_
     }
   }
 }
+*/
 
 void M5Touch::drawMenu(String inmenutxt, String inbtnatxt, String inbtnbtxt, String inbtnctxt) {
   if (menuDisplayed) {
     Serial.println("No need to display the menu...");
     return;
   }
+  /*
   // Save top bar and button areas in the save0/1/2/3 buffers for later redrawing
   // Uses less memory than saving two bars of 320 x 28
   // readRect(uint32_t x0, uint32_t y0, uint32_t w, uint32_t h, uint16_t *data);
@@ -102,7 +105,7 @@ void M5Touch::drawMenu(String inmenutxt, String inbtnatxt, String inbtnbtxt, Str
       Serial.write('['); Serial.print(this->save3[j * 60 + i], HEX); Serial.write(']');
     }
   } Serial.write('\n');
-
+  */
   //M5.Lcd.fillRect(0, 240 - 28, 320, 28, sys_windowcolor);
   M5.Lcd.fillRoundRect(31, 240 - 28, 60, 28, 3, sys_menucolor); // BtnA
   M5.Lcd.fillRoundRect(126, 240 - 28, 60, 28, 3, sys_menucolor); // BtnB
