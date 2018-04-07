@@ -7,6 +7,10 @@ void M5ProgressBar::setRange(float minimum, float maximum) {
   invalidate();
 }
 
+void M5ProgressBar::disablePrint() {
+  _printValue = false;
+}
+
 void M5ProgressBar::setValue(float value) {
   if (value < _minimum) {
     _valueReq = _minimum;
@@ -37,12 +41,14 @@ void M5ProgressBar::drawPointer() {
   M5.Lcd.fillRect(x + 1, y + 1, w - 2, height - 2, color(CONTENT));
   char text[8];
   dtostrf(_value, 4, 2, text);
-  M5.Lcd.setFont(this->myFont);
-  uint16_t tw = M5.Lcd.textWidth(text);
-  int16_t th = M5.Lcd.fontHeight(1);
-  uint16_t myX = x + (w - tw) - 2;
-  if (myX < x + 6) myX = x + 6;
-  M5.Lcd.setTextColor(this->color(FOREGROUND));
-  M5.Lcd.drawString(text, myX, 2 + y + ((this->height+2) - th) / 2, 1);
+  if(_printValue) {
+    M5.Lcd.setFont(this->myFont);
+    uint16_t tw = M5.Lcd.textWidth(text);
+    int16_t th = M5.Lcd.fontHeight(1);
+    uint16_t myX = x + (w - tw) - 2;
+    if (myX < x + 6) myX = x + 6;
+    M5.Lcd.setTextColor(this->color(FOREGROUND));
+    M5.Lcd.drawString(text, myX, 2 + y + ((this->height+2) - th) / 2, 1);
+  }
 }
 

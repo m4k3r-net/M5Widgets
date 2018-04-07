@@ -11,11 +11,13 @@ class M5ProgressBar : public M5Widget {
   void setValue(float value);
   /// Gets the value displayed by the gauge
   float value() const { return _valueReq; }
+  void disablePrint(void);
 
   virtual void update(void);
   virtual void draw(void);
  private:
   void drawPointer();
   float _minimum, _maximum, _value, _valueReq;
+  bool _printValue=true;
 };
 #endif
