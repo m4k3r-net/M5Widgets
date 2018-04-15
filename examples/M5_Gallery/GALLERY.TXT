@@ -1,0 +1,1 @@
+{"source": "/GALLERY", "interval": 2000, "bground": 0}
