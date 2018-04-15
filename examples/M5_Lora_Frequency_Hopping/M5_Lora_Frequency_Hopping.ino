@@ -6,6 +6,7 @@
 #include <M5Stack.h>
 #include <M5Widget.h>
 #include <M5LoRa.h>
+#include "M5StackUpdater.h"
 
 M5LineGraph lg;
 
@@ -143,6 +144,11 @@ float freqs[] = { 0, 0, 0, 0, 0, 0};
 void setup() {
   Serial.begin(SERIAL_SPEED);
   M5.begin();
+  if (digitalRead(BUTTON_A_PIN) == 0) {
+    Serial.println("Will Load menu binary");
+    updateFromFS(SD);
+    ESP.restart();
+  }
   // Lcd display
   M5.Lcd.setTextColor(TFT_WHITE, TFT_BLACK);
   M5.Lcd.fillScreen(TFT_BLACK);
