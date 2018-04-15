@@ -4,6 +4,7 @@
 // https://github.com/open-electronics/LoRa/releases
 
 #include <M5Stack.h>
+#include <M5Widget.h>
 #include <M5LoRa.h>
 
 M5LineGraph lg;

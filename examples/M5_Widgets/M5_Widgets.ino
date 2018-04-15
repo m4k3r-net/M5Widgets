@@ -1,4 +1,5 @@
 #include <M5Stack.h>
+#include <M5Widget.h>
 #include "Free_Fonts.h"
 
 M5Gauge gauge;

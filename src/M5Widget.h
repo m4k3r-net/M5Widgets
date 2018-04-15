@@ -3,7 +3,7 @@
 
 #include <M5Stack.h>
 #include <Arduino.h>
-#include "utility/M5DataBuffer.h"
+#include "M5DataBuffer.h"
 
 #define BACKGROUND  0
 #define FRAME       1
@@ -127,16 +127,16 @@ class M5Widget {
     bool invalidated;
 };
 
-#include "utility/M5Gauge.h"
-#include "utility/M5ProgressBar.h"
-#include "utility/M5BarGraph.h"
-#include "utility/M5LineGraph.h"
-#include "utility/M5QRCode.h"
-#include "utility/M5Bridge.h"
-#include "utility/M5Supplier.h"
-#include "utility/M5BMP280.h"
-#include "utility/M5SmartGauge.h"
-#include "utility/M5Touch.h"
-#include "utility/M5StaticMenu.h"
+#include "M5Gauge.h"
+#include "M5ProgressBar.h"
+#include "M5BarGraph.h"
+#include "M5LineGraph.h"
+#include "M5QRCode.h"
+#include "M5Bridge.h"
+#include "M5Supplier.h"
+#include "M5BMP280.h"
+#include "M5SmartGauge.h"
+#include "M5Touch.h"
+#include "M5StaticMenu.h"
 
 #endif
