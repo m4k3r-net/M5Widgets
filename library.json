@@ -1,0 +1,16 @@
+{
+  "name": "M5Widgets",
+  "description": "Widgets for the M5Stack",
+  "keywords": "M5Stack",
+  "authors": {
+    "name": "Kongduino",
+    "url": "http://kongduino.wordpress.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kongduino/M5Widgets.git"
+  },
+  "version": "0.0.1",
+  "framework": "arduino",
+  "platforms": "espressif32"
+}
