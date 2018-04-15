@@ -1,0 +1,154 @@
+/*
+ * (C) Copyright 2014 Aurélien Rodot. All rights reserved.
+ *
+ * This file is part of the Gamebuino Library (http://gamebuino.com)
+ *
+ * The Gamebuino Library is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+
+DataBuffer	KEYWORD3
+M5BarGraph	KEYWORD3
+M5BarGraph 	KEYWORD3
+M5BMP280	KEYWORD3
+M5Bridge	KEYWORD3
+M5Gauge		KEYWORD3
+M5LineGraph	KEYWORD3
+M5LineGraph	KEYWORD3
+M5ProgressBar	KEYWORD3
+M5QRCode	KEYWORD3
+M5SmartGauge	KEYWORD3
+M5StaticMenu	KEYWORD3
+M5Supplier	KEYWORD3
+M5Timer		KEYWORD3
+M5Widget        KEYWORD3
+DataBuffer      KEYWORD3
+
+addValue		KEYWORD1
+addValues		KEYWORD1
+attach			KEYWORD1
+attachTouch		KEYWORD1
+centerDisplay		KEYWORD1
+checkOnButtons		KEYWORD1
+clear			KEYWORD1
+consoleDisplay		KEYWORD1
+data			KEYWORD1
+dataPoint		KEYWORD1
+dataPointName		KEYWORD1
+dataPoints		KEYWORD1
+dataSize		KEYWORD1
+decreaseBacklight	KEYWORD1
+deleteTimer		KEYWORD1
+disable			KEYWORD1
+disablePrint		KEYWORD1
+draw			KEYWORD1
+draw_validate		KEYWORD1
+drawMenu		KEYWORD1
+drawStringMiddle	KEYWORD1
+drawTriangle		KEYWORD1
+enable			KEYWORD1
+eraseMenu		KEYWORD1
+eraseWidget		KEYWORD1
+fillBorderRect		KEYWORD1
+fillBorderRoundRect	KEYWORD1
+getError		KEYWORD1
+getFeedback		KEYWORD1
+getHeight		KEYWORD1
+getInterval		KEYWORD1
+getLastCheck		KEYWORD1
+getLoRaBand		KEYWORD1
+getNumTimers		KEYWORD1
+getSerial0Speed		KEYWORD1
+getSerial2Speed		KEYWORD1
+getWidth		KEYWORD1
+getX			KEYWORD1
+getY			KEYWORD1
+growToFit		KEYWORD1
+increaseBacklight	KEYWORD1
+inited			KEYWORD1
+invalidate		KEYWORD1
+isActive		KEYWORD1
+isDrawingEnabled	KEYWORD1
+isDrawn			KEYWORD1
+isEnabled		KEYWORD1
+isInited		KEYWORD1
+isInvalidated		KEYWORD1
+isVisible		KEYWORD1
+lineColor		KEYWORD1
+logAnswer		KEYWORD1
+loraInited		KEYWORD1
+name			KEYWORD1
+position		KEYWORD1
+resize			KEYWORD1
+restartTimer		KEYWORD1
+run			KEYWORD1
+serial0Inited		KEYWORD1
+serial2Inited		KEYWORD1
+set			KEYWORD1
+setAutoClear		KEYWORD1
+setBaseValue		KEYWORD1
+setBounds		KEYWORD1
+setColor		KEYWORD1
+setDataIndex		KEYWORD1
+setDrawCenter		KEYWORD1
+setDrawFooter		KEYWORD1
+setDrawHeader		KEYWORD1
+setDrawingEnabled	KEYWORD1
+setError		KEYWORD1
+setFont			KEYWORD1
+setInterval		KEYWORD1
+setIOFunction		KEYWORD1
+setLastCheck		KEYWORD1
+setLineColor		KEYWORD1
+setLineCount		KEYWORD1
+setLoRaBand		KEYWORD1
+setLoRaInited		KEYWORD1
+setLoRaUUID		KEYWORD1
+setRange		KEYWORD1
+setSeaLevel		KEYWORD1
+setSerial0Inited	KEYWORD1
+setSerial2Inited	KEYWORD1
+setSize			KEYWORD1
+setTextRaw		KEYWORD1
+setTimeout		KEYWORD1
+setTimer		KEYWORD1
+setTouchFunctionA	KEYWORD1
+setTouchFunctionB	KEYWORD1
+setTouchFunctionC	KEYWORD1
+setValue		KEYWORD1
+setVersion		KEYWORD1
+setVisible		KEYWORD1
+start			KEYWORD1
+stop			KEYWORD1
+text			KEYWORD1
+toggle			KEYWORD1
+undraw			KEYWORD1
+update			KEYWORD1
+updateValues		KEYWORD1
+value			KEYWORD1
+version			KEYWORD1
+visible			KEYWORD1
+
+
+myColors	KEYWORD2
+xOffset		KEYWORD2
+yOffset		KEYWORD2
+
+
+BACKGROUND 	LITERAL1
+FRAME	 	LITERAL1
+FOREGROUND 	LITERAL1
+GRAY 		LITERAL1
+CONTENT 	LITERAL1
+HIGHLIGHT 	LITERAL1
+ACTIVATED 	LITERAL1
