@@ -9,7 +9,7 @@ As I am not integrating this to the M5Stack library, it has become simpler. Drop
 
 In your code, add:
 
-    #include "utility/M5Widget.h"
+    #include "M5Widget.h"
 
 You have now access to the M5Widgets. Yay!
 
