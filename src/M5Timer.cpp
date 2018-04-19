@@ -20,6 +20,7 @@
 */
 
 #include "M5Timer.h"
+#ifndef M5_LIB_VERSION
 
 // Select time function:
 //static inline unsigned long elapsed() { return micros(); }
@@ -191,3 +192,5 @@ void M5Timer::toggle(int numTimer) {
 int M5Timer::getNumTimers() {
   return numTimers;
 }
+
+#endif
