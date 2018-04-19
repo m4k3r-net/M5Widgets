@@ -2,8 +2,13 @@
 
 #ifndef _M5QRCODE_H_
 #define _M5QRCODE_H_
+
+#ifdef M5_LIB_VERSION
+  #include "utility/qrcode.h"
+#else
 // If you don't have the qrcode library, this is gonna hurt...
-#include "qrcode.h"
+  #include "qrcode.h"
+#endif
 
 class M5QRCode : public M5Widget {
   public:
