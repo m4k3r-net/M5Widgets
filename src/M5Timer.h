@@ -20,6 +20,8 @@
 
 */
 
+#ifndef M5_LIB_VERSION // already loaded from M5Stack
+
 #ifndef M5Timer_H
 #define M5Timer_H
 
@@ -88,4 +90,5 @@ class M5Timer {
     // actual number of timers in use
     int numTimers;
 };
+#endif
 #endif
