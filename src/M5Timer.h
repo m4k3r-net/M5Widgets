@@ -20,6 +20,7 @@
 
 */
 
+#include <M5Stack.h>
 #ifndef M5_LIB_VERSION // already loaded from M5Stack
 
 #ifndef M5Timer_H
