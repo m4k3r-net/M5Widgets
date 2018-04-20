@@ -10,6 +10,7 @@ class M5Gauge : public M5Widget {
   float value() const { return _valueReq; }
   virtual void update(void);
   virtual void draw(void);
+  
  private:
   void drawPointer(uint16_t color, bool fillBg = false);
   void drawLineAngle(int x, int y, int r1, int r2, float angle, uint16_t color);

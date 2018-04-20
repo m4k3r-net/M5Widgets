@@ -136,7 +136,7 @@ class M5Widget {
 #include "M5Supplier.h"
 #include "M5BMP280.h"
 #include "M5SmartGauge.h"
-#include "M5Touch.h"
+#include "M5Mosaic.h"
 #include "M5StaticMenu.h"
 
 #endif
