@@ -4,6 +4,7 @@
 M5Mosaic mm;
 #define FF22 &FreeSansBold12pt7b
 #define FF21 &FreeSansBold9pt7b
+#define FF17 &FreeSans9pt7b
 
 uint32_t t0;
 
@@ -78,7 +79,7 @@ void setup() {
 
   mm.setBounds(0, 0, 320, 200);
   mm.setColor(BACKGROUND, TFT_BLACK);
-  mm.setColor(FRAME, TFT_WHITE);
+  mm.setColor(FRAME, TFT_BLACK);
   mm.setColor(FOREGROUND, TFT_NAVY);
   mm.setColor(CONTENT, TFT_CYAN);
   mm.setColor(HIGHLIGHT, TFT_RED);
@@ -93,11 +94,12 @@ void setup() {
 
 void loop() {
   int8_t ix = mm.feedback();
-  Serial.println("feedback = " + String(ix));
   if (ix > -1) {
-    M5.Lcd.drawString("You pressed " + String(mm.getPieceName(ix).c_str()), 20, 1, 1);
+    M5.Lcd.setTextColor(mm.color(FOREGROUND), mm.color(CONTENT));
+    M5.Lcd.setFont(FF21);
+    Serial.println("getPieceName[" + String(ix) + "]: " + String(mm.getPieceName(ix).c_str()));
+    M5.Lcd.drawString("You pressed " + String(mm.getPieceName(ix).c_str()), 100, 8, 1);
     delay(1000);
     mm.clear();
   }
 }
-
