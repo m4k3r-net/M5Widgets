@@ -48,6 +48,7 @@ void setup() {
   mm.setColor(ACTIVATED, TFT_BLUE);
 
   mm.setFont(FF21);
+  mm.setName("M5mosaic");
 
   mm.clear();
   t0 = millis();

@@ -46,16 +46,16 @@ void M5Mosaic::draw() {
       _row = 3;
       xOffset = (width - (side * 3)) / 2;
       yOffset = (height - side) / 2;
-      M5.Lcd.setFont(FF22);
+      this->setFont(FF22);
     } else if (_count < 7) {
       _row = 3;
       side = (width / 3);
       xOffset = (width - (side * 3)) / 2;
       yOffset = (height - (side * 2)) / 2;
-      M5.Lcd.setFont(FF22);
+      this->setFont(FF22);
     } else {
       // more than two lines
-      M5.Lcd.setFont(FF21);
+      this->setFont(FF21);
       uint8_t nLines = _count / 3;
       if (nLines * 3 < _count) nLines += 1;
       side = (height / nLines);
@@ -75,6 +75,8 @@ void M5Mosaic::draw() {
   }
   posX = x + xOffset;
   posY = y + yOffset;
+  M5.Lcd.setFont(myFont);
+  
   for (uint8_t i = 0; i < _count; i++) {
     MosaicPiece piece = _pieces[i];
     if (piece.square) {
