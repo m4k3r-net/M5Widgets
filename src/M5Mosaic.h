@@ -1,4 +1,5 @@
 #include "M5Widget.h"
+#include <vector>
 
 #ifndef _M5MOSAIC_H_
 #define _M5MOSAIC_H_
