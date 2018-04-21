@@ -7,6 +7,7 @@ M5Mosaic mm;
 #define FF17 &FreeSans9pt7b
 
 uint32_t t0;
+uint8_t nbBTN = 13;
 
 void setup() {
   Serial.begin(115200);
@@ -14,69 +15,30 @@ void setup() {
   M5.Lcd.begin();
   M5.lcd.setBrightness(200);
   MosaicPiece piece;
-  std::string name = "B 1";
-  piece.name = name;
-  piece.index = 0;
-  piece.bgColor = TFT_LIGHTSALMON;
-  piece.fgColor = TFT_SEAGREEN;
-  piece.enabled = true;
-  piece.square = true;
-  mm.addValue(piece);
-
-  name = "B 2";
-  piece.name = name;
-  piece.index = 1;
-  piece.bgColor = TFT_LIGHTBLUE;
-  piece.fgColor = TFT_YELLOW;
-  piece.enabled = false;
-  piece.square = true;
-  mm.addValue(piece);
-
-  name = "B 3";
-  piece.name = name;
-  piece.index = 2;
-  piece.bgColor = TFT_GREEN;
-  piece.fgColor = TFT_YELLOW;
-  piece.enabled = true;
-  piece.square = true;
-  mm.addValue(piece);
-
-  name = "B 4";
-  piece.name = name;
-  piece.index = 3;
-  piece.bgColor = TFT_LIGHTSLATEGRAY;
-  piece.fgColor = TFT_PAPAYAWHIP;
-  piece.enabled = true;
-  piece.square = true;
-  mm.addValue(piece);
-
-  name = "B 5";
-  piece.name = name;
-  piece.index = 3;
-  piece.bgColor = TFT_LIGHTGREEN;
-  piece.fgColor = TFT_BROWN;
-  piece.enabled = true;
-  piece.square = true;
-  mm.addValue(piece);
-
-  name = "B 6";
-  piece.name = name;
-  piece.index = 3;
-  piece.bgColor = TFT_LIGHTCORAL;
-  piece.fgColor = TFT_MEDIUMPURPLE;
-  piece.enabled = true;
-  piece.square = true;
-  mm.addValue(piece);
-
-  name = "B 7";
-  piece.name = name;
-  piece.index = 3;
-  piece.bgColor = TFT_PEACHPUFF;
-  piece.fgColor = TFT_SEAGREEN;
-  piece.enabled = true;
-  piece.square = true;
-  mm.addValue(piece);
-
+  for (uint8_t i = 0; i < nbBTN; i++) {
+    uint8_t ix = i;
+    std::string name = "B   ";
+    if (ix < 10) name[3] = (char)(ix + 48);
+    else {
+      ix /= 10;
+      name[2] = (char)(ix + 48);
+      ix = i - (ix*10);
+      name[3] = (char)(ix + 48);
+    }
+    Serial.println("name: " + String(name.c_str()));
+    piece.name = name;
+    if (ix % 2 == 0) {
+      piece.bgColor = TFT_LIGHTSALMON;
+      piece.fgColor = TFT_SEAGREEN;
+      piece.square = true;
+    } else {
+      piece.bgColor = TFT_GREEN;
+      piece.fgColor = TFT_YELLOW;
+      piece.square = false;
+    }
+    piece.enabled = true;
+    mm.addValue(piece);
+  }
   mm.setBounds(0, 0, 320, 200);
   mm.setColor(BACKGROUND, TFT_BLACK);
   mm.setColor(FRAME, TFT_BLACK);

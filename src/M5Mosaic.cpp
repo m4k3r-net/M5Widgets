@@ -60,10 +60,13 @@ void M5Mosaic::draw() {
       if (nLines * 3 < _count) nLines += 1;
       side = (height / nLines);
       _row = width / side;
-      side = width / _row;
+      if(_row * nLines > _count) {
+        _row -= 1;
+        side = width/_row;
+      }
       nLines = _count / _row;
       xOffset = (width - (side * _row)) / 2;
-      yOffset = (height - (side * nLines)) / 5;
+      yOffset = (height - ((side+2) * nLines)) / 5;
     }
     Serial.println("\n\nside: " + String(side));
     Serial.println("_row: " + String(_row));
@@ -95,7 +98,7 @@ void M5Mosaic::draw() {
     M5.Lcd.drawString(piece.name.c_str(), posX + (side - wx) / 2, posY + side / 2 - 8, 1);
     posX += side;
     if (i % (_row - 1) == 0 && i > 0) {
-      posY += side;
+      posY += side + 2;
       posX = x + xOffset;
       Serial.println("posX: " + String(posX));
       Serial.println("posY: " + String(posY));
