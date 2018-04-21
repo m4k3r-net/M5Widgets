@@ -53,17 +53,20 @@ void M5Mosaic::draw() {
     } else {
       // more than two lines
       this->setFont(FF21);
-      uint8_t nLines = _count / 3;
+      nLines = _count / 3;
       if (nLines * 3 < _count) nLines += 1;
-      side = (height / nLines);
+      side = (height / nLines) - nLines * 2;
       _row = width / side;
       if (_row * nLines > _count) {
         _row -= 1;
         side = width / _row;
       }
       nLines = _count / _row;
+      if (nLines * _row < _count) nLines += 1;
+      uint8_t side0 = (height / nLines) - nLines * 2;
+      if(side0 < side) side = side0;
       xOffset = (width - (side * _row)) / 2;
-      yOffset = (height - ((side + 2) * nLines)) / 5;
+      yOffset = (height - ((side + 2) * nLines)) / 2;
     }
     Serial.println("\n\nside: " + String(side));
     Serial.println("_row: " + String(_row));

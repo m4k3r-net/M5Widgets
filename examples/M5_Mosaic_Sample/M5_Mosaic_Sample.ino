@@ -7,7 +7,7 @@ M5Mosaic mm;
 #define FF17 &FreeSans9pt7b
 
 uint32_t t0;
-uint8_t nbBTN = 13;
+uint8_t nbBTN = 8;
 
 void setup() {
   Serial.begin(115200);
