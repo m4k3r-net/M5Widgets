@@ -44,7 +44,7 @@ class M5Mosaic : public M5Widget {
   int8_t _selectedIndex = 0;
   bool _inited;
   uint16_t posX, posY;
-  uint8_t side, xOffset, yOffset, nSlots, _row;
+  uint8_t side, xOffset, yOffset, nSlots, _row, nLines;
   String _name = "Unnamed";
   uint32_t _lastCheck;
 };

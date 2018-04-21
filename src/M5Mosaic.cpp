@@ -10,7 +10,7 @@ void M5Mosaic::clear() {
   M5.Lcd.fillRoundRect(0, 0, 320, HEADERHEIGHT, 3, color(CONTENT));
   M5.Lcd.setFont(FF21);
   M5.Lcd.setTextColor(color(FOREGROUND));
-  M5.Lcd.drawString(_name, 1, HEADERHEIGHT /2, 1);
+  M5.Lcd.drawString(_name, 1, HEADERHEIGHT / 2, 1);
   M5.Lcd.setFont(FF17);
   M5.Lcd.drawString("test", 8, 0, 1);
   M5.Lcd.setFont(FF18);
@@ -41,17 +41,14 @@ void M5Mosaic::draw() {
     if (height > 240 - HEADERHEIGHT - FOOTERHEIGHT) height = 240 - HEADERHEIGHT - FOOTERHEIGHT - 2;
     if (y < HEADERHEIGHT) y = HEADERHEIGHT + 1;
     if (width > 320 - x) width = 320 - x;
-    if (_count < 4) {
-      side = (width / 3);
+    if (_count < 7) {
       _row = 3;
-      xOffset = (width - (side * 3)) / 2;
-      yOffset = (height - side) / 2;
-      this->setFont(FF22);
-    } else if (_count < 7) {
-      _row = 3;
-      side = (width / 3);
-      xOffset = (width - (side * 3)) / 2;
-      yOffset = (height - (side * 2)) / 2;
+      if (_count < 4) nLines = 1;
+      else nLines = 2;
+      //side = (height / nLines);
+      side = (height / nLines) - nLines * 2;
+      xOffset = (width - ((side + 0) * _row)) / 2;
+      yOffset = (height - ((side + 2) * nLines)) / 2;
       this->setFont(FF22);
     } else {
       // more than two lines
@@ -60,51 +57,56 @@ void M5Mosaic::draw() {
       if (nLines * 3 < _count) nLines += 1;
       side = (height / nLines);
       _row = width / side;
-      if(_row * nLines > _count) {
+      if (_row * nLines > _count) {
         _row -= 1;
-        side = width/_row;
+        side = width / _row;
       }
       nLines = _count / _row;
       xOffset = (width - (side * _row)) / 2;
-      yOffset = (height - ((side+2) * nLines)) / 5;
+      yOffset = (height - ((side + 2) * nLines)) / 5;
     }
     Serial.println("\n\nside: " + String(side));
     Serial.println("_row: " + String(_row));
+    Serial.println("nLines: " + String(nLines));
     Serial.println("xOffset: " + String(xOffset));
     Serial.println("yOffset: " + String(yOffset));
+    Serial.println("width: " + String(width));
+    Serial.println("height: " + String(height));
   }
   posX = x + xOffset;
   posY = y + yOffset;
   M5.Lcd.setFont(myFont);
-  
-  for (uint8_t i = 0; i < _count; i++) {
-    MosaicPiece piece = _pieces[i];
-    if (piece.square) {
-      if (_selectedIndex == i) {
-        M5.Lcd.fillRoundRect(posX, posY, side, side, 3, piece.fgColor);
-        M5.Lcd.fillRoundRect(posX + 3, posY + 3, side - 6, side - 6, 3, piece.bgColor);
+  uint8_t ix = 0;
+  for (uint8_t i = 0; i < nLines; i++) {
+    uint8_t jx = 0;
+    while (ix < _count && jx++ < _row) {
+      MosaicPiece piece = _pieces[ix];
+      if (piece.square) {
+        if (_selectedIndex == ix) {
+          M5.Lcd.fillRoundRect(posX, posY, side, side, 3, piece.fgColor);
+          M5.Lcd.fillRoundRect(posX + 3, posY + 3, side - 6, side - 6, 3, piece.bgColor);
+        } else {
+          M5.Lcd.fillRoundRect(posX, posY, side, side, 3, piece.bgColor);
+        }
       } else {
-        M5.Lcd.fillRoundRect(posX, posY, side, side, 3, piece.bgColor);
+        uint16_t centerX = posX + side / 2, centerY = posY + side / 2;
+        if (_selectedIndex == ix) {
+          M5.Lcd.fillCircle(centerX, centerY, side / 2, piece.fgColor);
+          M5.Lcd.fillCircle(centerX, centerY, side / 2 - 3, piece.bgColor);
+        } else {
+          M5.Lcd.fillCircle(centerX, centerY, side / 2, piece.bgColor);
+        }
       }
-    } else {
-      uint16_t centerX = posX + side / 2, centerY = posY + side / 2;
-      if (_selectedIndex == i) {
-        M5.Lcd.fillCircle(centerX, centerY, side / 2, piece.fgColor);
-        M5.Lcd.fillCircle(centerX, centerY, side / 2 - 3, piece.bgColor);
-      } else {
-        M5.Lcd.fillCircle(centerX, centerY, side / 2, piece.bgColor);
-      }
+      uint16_t wx = M5.Lcd.textWidth(piece.name.c_str());
+      M5.Lcd.setTextColor(piece.fgColor, piece.bgColor);
+      M5.Lcd.drawString(piece.name.c_str(), posX + (side - wx) / 2, posY + side / 2 - 8, 1);
+      posX += side;
+      ix += 1;
     }
-    uint16_t wx = M5.Lcd.textWidth(piece.name.c_str());
-    M5.Lcd.setTextColor(piece.fgColor, piece.bgColor);
-    M5.Lcd.drawString(piece.name.c_str(), posX + (side - wx) / 2, posY + side / 2 - 8, 1);
-    posX += side;
-    if (i % (_row - 1) == 0 && i > 0) {
-      posY += side + 2;
-      posX = x + xOffset;
-      Serial.println("posX: " + String(posX));
-      Serial.println("posY: " + String(posY));
-    }
+    posY += side + 2;
+    posX = x + xOffset;
+    Serial.println("posX: " + String(posX));
+    Serial.println("posY: " + String(posY));
   }
   _inited = true;
 }
@@ -116,24 +118,30 @@ void M5Mosaic::addValue(MosaicPiece piece) {
 }
 
 int8_t M5Mosaic::feedback() {
-  if(millis() - _lastCheck < 100) return -1;
+  if (millis() - _lastCheck < 100) return -1;
   M5.update();
   _lastCheck = millis();
-  if (M5.BtnA.wasPressed()) { minusOne(); return -1; }
+  if (M5.BtnA.wasPressed()) {
+    minusOne();
+    return -1;
+  }
   if (M5.BtnB.wasPressed()) return _selectedIndex;
-  if (M5.BtnC.wasPressed()) { plusOne(); return -1; }
+  if (M5.BtnC.wasPressed()) {
+    plusOne();
+    return -1;
+  }
   return -1;
 }
 
 void M5Mosaic::minusOne() {
   _selectedIndex -= 1;
-  if(_selectedIndex == -1) _selectedIndex = _count;
+  if (_selectedIndex == -1) _selectedIndex = _count;
   draw();
 }
 
 void M5Mosaic::plusOne() {
   _selectedIndex += 1;
-  if(_selectedIndex == _count) _selectedIndex = 0;
+  if (_selectedIndex == _count) _selectedIndex = 0;
   draw();
 }
 
