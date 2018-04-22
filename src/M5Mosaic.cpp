@@ -45,8 +45,9 @@ void M5Mosaic::draw() {
       _row = 3;
       if (_count < 4) nLines = 1;
       else nLines = 2;
-      //side = (height / nLines);
-      side = (height / nLines) - nLines * 2;
+      side = (width / _row);
+      uint16_t side0 = (height / nLines) - nLines * 2;
+      if(side0<side) side = side0;
       xOffset = (width - ((side + 0) * _row)) / 2;
       yOffset = (height - ((side + 2) * nLines)) / 2;
       this->setFont(FF22);
