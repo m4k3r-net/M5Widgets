@@ -85,24 +85,30 @@ void M5Mosaic::draw() {
     uint8_t jx = 0;
     while (ix < _count && jx++ < _row) {
       MosaicPiece piece = _pieces[ix];
+      uint16_t bgColor=piece.bgColor;
+      uint16_t fgColor=piece.fgColor;
+      if(!piece.enabled) {
+        uint16_t bgColor=TFT_DARKGREY;
+        uint16_t fgColor=TFT_LIGHTGRAY;
+      }
       if (piece.square) {
         if (_selectedIndex == ix) {
           M5.Lcd.fillRoundRect(posX, posY, side, side, 3, piece.fgColor);
-          M5.Lcd.fillRoundRect(posX + 3, posY + 3, side - 6, side - 6, 3, piece.bgColor);
+          M5.Lcd.fillRoundRect(posX + 3, posY + 3, side - 6, side - 6, 3, bgColor);
         } else {
-          M5.Lcd.fillRoundRect(posX, posY, side, side, 3, piece.bgColor);
+          M5.Lcd.fillRoundRect(posX, posY, side, side, 3, bgColor);
         }
       } else {
         uint16_t centerX = posX + side / 2, centerY = posY + side / 2;
         if (_selectedIndex == ix) {
-          M5.Lcd.fillCircle(centerX, centerY, side / 2, piece.fgColor);
-          M5.Lcd.fillCircle(centerX, centerY, side / 2 - 3, piece.bgColor);
+          M5.Lcd.fillCircle(centerX, centerY, side / 2, pfgColor);
+          M5.Lcd.fillCircle(centerX, centerY, side / 2 - 3, bgColor);
         } else {
-          M5.Lcd.fillCircle(centerX, centerY, side / 2, piece.bgColor);
+          M5.Lcd.fillCircle(centerX, centerY, side / 2, bgColor);
         }
       }
       uint16_t wx = M5.Lcd.textWidth(piece.name.c_str());
-      M5.Lcd.setTextColor(piece.fgColor, piece.bgColor);
+      M5.Lcd.setTextColor(piece.fgColor, bgColor);
       M5.Lcd.drawString(piece.name.c_str(), posX + (side - wx) / 2, posY + side / 2 - 8, 1);
       posX += side;
       ix += 1;
@@ -140,13 +146,15 @@ int8_t M5Mosaic::feedback() {
 void M5Mosaic::minusOne() {
   _selectedIndex -= 1;
   if (_selectedIndex == -1) _selectedIndex = _count;
-  draw();
+  if(!_pieces[_selectedIndex].enabled) minusOne();
+  else draw();
 }
 
 void M5Mosaic::plusOne() {
   _selectedIndex += 1;
   if (_selectedIndex == _count) _selectedIndex = 0;
-  draw();
+  if(!_pieces[_selectedIndex].enabled) plusOne();
+  else draw();
 }
 
 std::string M5Mosaic::getPieceName(uint8_t ix) {
