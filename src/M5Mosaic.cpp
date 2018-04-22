@@ -69,13 +69,6 @@ void M5Mosaic::draw() {
       xOffset = (width - (side * _row)) / 2;
       yOffset = (height - ((side + 2) * nLines)) / 2;
     }
-    Serial.println("\n\nside: " + String(side));
-    Serial.println("_row: " + String(_row));
-    Serial.println("nLines: " + String(nLines));
-    Serial.println("xOffset: " + String(xOffset));
-    Serial.println("yOffset: " + String(yOffset));
-    Serial.println("width: " + String(width));
-    Serial.println("height: " + String(height));
   }
   posX = x + xOffset;
   posY = y + yOffset;
@@ -85,38 +78,36 @@ void M5Mosaic::draw() {
     uint8_t jx = 0;
     while (ix < _count && jx++ < _row) {
       MosaicPiece piece = _pieces[ix];
-      uint16_t bgColor=piece.bgColor;
-      uint16_t fgColor=piece.fgColor;
+      uint16_t bg=piece.bgColor;
+      uint16_t fg=piece.fgColor;
       if(!piece.enabled) {
-        uint16_t bgColor=TFT_DARKGREY;
-        uint16_t fgColor=TFT_LIGHTGRAY;
+        bg=TFT_DARKGREY;
+        fg=TFT_LIGHTGRAY;
       }
       if (piece.square) {
         if (_selectedIndex == ix) {
-          M5.Lcd.fillRoundRect(posX, posY, side, side, 3, piece.fgColor);
-          M5.Lcd.fillRoundRect(posX + 3, posY + 3, side - 6, side - 6, 3, bgColor);
+          M5.Lcd.fillRoundRect(posX, posY, side, side, 3, fg);
+          M5.Lcd.fillRoundRect(posX + 3, posY + 3, side - 6, side - 6, 3, bg);
         } else {
-          M5.Lcd.fillRoundRect(posX, posY, side, side, 3, bgColor);
+          M5.Lcd.fillRoundRect(posX, posY, side, side, 3, bg);
         }
       } else {
         uint16_t centerX = posX + side / 2, centerY = posY + side / 2;
         if (_selectedIndex == ix) {
-          M5.Lcd.fillCircle(centerX, centerY, side / 2, fgColor);
-          M5.Lcd.fillCircle(centerX, centerY, side / 2 - 3, bgColor);
+          M5.Lcd.fillCircle(centerX, centerY, side / 2, fg);
+          M5.Lcd.fillCircle(centerX, centerY, side / 2 - 3, bg);
         } else {
-          M5.Lcd.fillCircle(centerX, centerY, side / 2, bgColor);
+          M5.Lcd.fillCircle(centerX, centerY, side / 2, bg);
         }
       }
       uint16_t wx = M5.Lcd.textWidth(piece.name.c_str());
-      M5.Lcd.setTextColor(piece.fgColor, bgColor);
+      M5.Lcd.setTextColor(fg, bg);
       M5.Lcd.drawString(piece.name.c_str(), posX + (side - wx) / 2, posY + side / 2 - 8, 1);
       posX += side;
       ix += 1;
     }
     posY += side + 2;
     posX = x + xOffset;
-    Serial.println("posX: " + String(posX));
-    Serial.println("posY: " + String(posY));
   }
   _inited = true;
 }
