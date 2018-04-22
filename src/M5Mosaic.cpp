@@ -101,7 +101,7 @@ void M5Mosaic::draw() {
       } else {
         uint16_t centerX = posX + side / 2, centerY = posY + side / 2;
         if (_selectedIndex == ix) {
-          M5.Lcd.fillCircle(centerX, centerY, side / 2, pfgColor);
+          M5.Lcd.fillCircle(centerX, centerY, side / 2, fgColor);
           M5.Lcd.fillCircle(centerX, centerY, side / 2 - 3, bgColor);
         } else {
           M5.Lcd.fillCircle(centerX, centerY, side / 2, bgColor);
