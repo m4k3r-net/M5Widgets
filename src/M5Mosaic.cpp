@@ -36,6 +36,14 @@ String M5Mosaic::getName() {
   return _name;
 }
 
+void M5Mosaic::setSubtitle(String s) {
+  _subtitle = s;
+}
+
+String M5Mosaic::getSubtitle() {
+  return _subtitle;
+}
+
 void M5Mosaic::draw() {
   if (!_inited) {
     if (height > 240 - HEADERHEIGHT - FOOTERHEIGHT) height = 240 - HEADERHEIGHT - FOOTERHEIGHT - 2;
@@ -82,7 +90,7 @@ void M5Mosaic::draw() {
       uint16_t fg=piece.fgColor;
       if(!piece.enabled) {
         bg=TFT_DARKGREY;
-        fg=TFT_LIGHTGRAY;
+        fg=TFT_LIGHTGREY;
       }
       if (piece.square) {
         if (_selectedIndex == ix) {

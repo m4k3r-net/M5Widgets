@@ -33,7 +33,9 @@ class M5Mosaic : public M5Widget {
   virtual void update(void);
   virtual void draw();
   void setName(String);
+  void setSubtitle(String);
   String getName(void);
+  String getSubtitle(void);
   std::string getPieceName(uint8_t);
   int8_t feedback(void);
   void plusOne(void);
@@ -46,7 +48,7 @@ class M5Mosaic : public M5Widget {
   bool _inited;
   uint16_t posX, posY;
   uint8_t side, xOffset, yOffset, nSlots, _row, nLines;
-  String _name = "Unnamed";
+  String _name = "Unnamed", _subtitle = "test";
   uint32_t _lastCheck;
 };
 
