@@ -1,4 +1,14 @@
 #include "M5Bridge.h"
+//#define L7_
+#ifdef L7_
+#define LORA_CS_PIN   13
+#define LORA_RST_PIN  26
+#define LORA_IRQ_PIN  35
+#else
+#define LORA_CS_PIN   5
+#define LORA_RST_PIN  26
+#define LORA_IRQ_PIN  36
+#endif
 
 // {"from":"kongduino", "msg":"Oh Hai", "sendCount":"1"}
 
@@ -86,6 +96,10 @@ void s2Init(M5Bridge *x) {
 }
 
 void loraInit(M5Bridge *x) {
+  LoRa.setPins(LORA_CS_PIN, LORA_RST_PIN, LORA_IRQ_PIN); // set CS, reset, IRQ pin
+  Serial.println("LORA_CS_PIN: "+String(LORA_CS_PIN));
+  Serial.println("LORA_RST_PIN: "+String(LORA_RST_PIN));
+  Serial.println("LORA_IRQ_PIN: "+String(LORA_IRQ_PIN));
   x->setLoRaInited(true);
   if (!LoRa.begin(x->getLoRaBand())) {
     Serial.println(F("Starting LoRa failed!"));
