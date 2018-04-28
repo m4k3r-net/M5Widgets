@@ -22,6 +22,8 @@ class M5Bridge {
     void run(void);
     void setLoRaBand(uint32_t);
     void setLoRaUUID(char *);
+    void setLoRaSFBWAGC(uint8_t, uint8_t, uint8_t);
+    void initSFBWAGC();
     bool isActive(void);
     bool serial0Inited(void);
     bool serial2Inited(void);
@@ -44,6 +46,7 @@ class M5Bridge {
     uint32_t _BAND, _serialSourceCount, _serialDestinationCount;
     uint32_t _Serial0Speed, _Serial2Speed;
     char *_myLoRaUUID;
+    uint8_t _SF, _BW, _AGC;
 };
 
 #endif

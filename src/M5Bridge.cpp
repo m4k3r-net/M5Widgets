@@ -1,5 +1,5 @@
 #include "M5Bridge.h"
-//#define L7_
+
 #ifdef L7_
 #define LORA_CS_PIN   13
 #define LORA_RST_PIN  26
@@ -95,11 +95,16 @@ void s2Init(M5Bridge *x) {
   x->setSerial2Inited(true);
 }
 
+#define REG_MODEM_CONFIG_1 0x1d
+#define REG_MODEM_CONFIG_2 0x1e
+#define REG_MODEM_CONFIG_3 0x26
+
 void loraInit(M5Bridge *x) {
   LoRa.setPins(LORA_CS_PIN, LORA_RST_PIN, LORA_IRQ_PIN); // set CS, reset, IRQ pin
   Serial.println("LORA_CS_PIN: "+String(LORA_CS_PIN));
   Serial.println("LORA_RST_PIN: "+String(LORA_RST_PIN));
   Serial.println("LORA_IRQ_PIN: "+String(LORA_IRQ_PIN));
+  x->initSFBWAGC();
   x->setLoRaInited(true);
   if (!LoRa.begin(x->getLoRaBand())) {
     Serial.println(F("Starting LoRa failed!"));
@@ -121,12 +126,25 @@ M5Bridge::M5Bridge() {
   _Serial2Speed = 115200;
 }
 
+void M5Bridge::initSFBWAGC() {
+  Serial.println("SF: 0x" + String(_SF, HEX) + "; BW: 0x" + String(_BW, HEX) + "; AGC: 0x" + String(_AGC, HEX));
+  LoRa.writeRegister(REG_MODEM_CONFIG_1, _BW); // 125 kHz, Error coding rate = 4/8, Explicit Header mode
+  LoRa.writeRegister(REG_MODEM_CONFIG_2, _SF); // SF = 12 @ 4096 chips / symbol, normal mode, CRC enable, RX Time-Out MSB=0
+  LoRa.writeRegister(REG_MODEM_CONFIG_3, _AGC); // Low Data Rate Optimize, AGC enabled
+}
+
 void M5Bridge::setLoRaBand(uint32_t myband) {
   _BAND = myband;
 }
 
 void M5Bridge::setLoRaUUID(char *myid) {
   _myLoRaUUID = myid;
+}
+
+void M5Bridge::setLoRaSFBWAGC(uint8_t sf, uint8_t bw, uint8_t agc) {
+  _SF = sf;
+  _BW = bw;
+  _AGC = agc;
 }
 
 void M5Bridge::setIOFunction(uint8_t pipeType0, uint8_t pipeType1) {
@@ -174,8 +192,11 @@ void M5Bridge::setIOFunction(uint8_t pipeType0, uint8_t pipeType1) {
 
 void M5Bridge::start() {
   _isActive = true;
+  Serial.println("Calling _streamInit0Function");
   _streamInit0Function(this);
+  Serial.println("Calling _streamInit1Function");
   _streamInit1Function(this);
+  Serial.println("done");
 }
 
 void M5Bridge::run() {

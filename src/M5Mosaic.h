@@ -37,6 +37,7 @@ class M5Mosaic : public M5Widget {
   String getName(void);
   String getSubtitle(void);
   std::string getPieceName(uint8_t);
+  void setPieceEnabled(uint8_t, bool);
   int8_t feedback(void);
   void plusOne(void);
   void minusOne(void);

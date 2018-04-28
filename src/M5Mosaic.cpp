@@ -82,6 +82,7 @@ void M5Mosaic::draw() {
   posY = y + yOffset;
   M5.Lcd.setFont(myFont);
   uint8_t ix = 0;
+  while(!_pieces[_selectedIndex].enabled) plusOne();
   for (uint8_t i = 0; i < nLines; i++) {
     uint8_t jx = 0;
     while (ix < _count && jx++ < _row) {
@@ -158,4 +159,8 @@ void M5Mosaic::plusOne() {
 
 std::string M5Mosaic::getPieceName(uint8_t ix) {
   return _pieces[ix].name;
+}
+
+void M5Mosaic::setPieceEnabled(uint8_t p, bool en) {
+  _pieces[p].enabled = en;
 }
